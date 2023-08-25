@@ -1,42 +1,67 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			peoples: [],
+			planets: [],
+			vehicles: [],
+			properties: {},
+			starWar: {},
+			favorites: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			InitialLoading: () => {
+				getActions().fetchPeople();
+				getActions().fetchPlanets();
+				getActions().fetchVehicles();
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			fetchPeople: async () => {
+				const res = await fetch('https://www.swapi.tech/api/people')
+				const data = await res.json()
+				const updateResults = []
+				data.results.forEach((el) => {
+					updateResults.push({ ...el, favorite: false })
+				})
+				setStore({ peoples: updateResults })
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+			fetchPlanets: async () => {
+				const res = await fetch('https://www.swapi.tech/api/planets')
+				const data = await res.json()
+				const updateResults = []
+				data.results.forEach((el) => {
+					updateResults.push({ ...el, favorite: false })
+				})
+				setStore({ planets: updateResults })
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+			},
+			fetchVehicles: async () => {
+				const res = await fetch('https://www.swapi.tech/api/vehicles')
+				const data = await res.json()
+				const updateResults = []
+				data.results.forEach((el) => {
+					updateResults.push({ ...el, favorite: false })
+				})
+				setStore({ vehicles: updateResults })
+			},
 
-				//reset the global store
-				setStore({ demo: demo });
+			fetchEachStarWar: async (name, id) => {
+				const res = await fetch(`https://www.swapi.tech/api/${name}/${id}`)
+				const data = await res.json()
+				setStore({ starWar: data.result })
+			},
+			setFavorites: (item, fav) => {
+				const store = getStore()
+				if (fav) {
+					const updateFavs = store.favorites.filter((el) => el.uid != item.uid)
+					setStore({ favorites: updateFavs })
+				} else {
+					const updateFavs = [...store.favorites, { ...item, favorite: !fav }]
+					setStore({ favorites: updateFavs })
+				}
+			},
+			deleteFavItem: (id) => {
+				const store = getStore()
+				const updateFavs = store.favorites.filter((el) => el.uid != id)
+				setStore({ favorites: updateFavs })
 			}
 		}
 	};

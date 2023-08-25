@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import StarWarsList from "../component/starWarsList";
+import { Context } from "../store/appContext";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+export const Home = () => {
+	const { store, actions } = useContext(Context);
+	return (
+		<div className="text-start m-5">
+			<h1 className="yellow-color">Characters</h1>
+			<StarWarsList list={store.peoples} name="characters" />
+			<h1 className="yellow-color">Planets</h1>
+			<StarWarsList list={store.planets} name="planets" />
+			<h1 className="yellow-color">Vehicles</h1>
+			<StarWarsList list={store.vehicles} name="vehicles" />
+		</div>
+	)
+};
+

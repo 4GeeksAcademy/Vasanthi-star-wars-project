@@ -1,3 +1,62 @@
 /* 
     General Styles
 */
+
+ul li {
+    list-style: none;
+}
+.fav-icon {
+    height: 20px;
+}
+.fav-icon:hover {
+    color: yellow;
+}
+.fav-icon-solid {
+    fill: black;
+}
+.stars {
+    background: url(http://www.script-tutorials.com/demos/360/images/stars.png) top center #000;
+}
+
+.stars, .twinkling {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.stars, .tooltip__background, .twinkling {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.twinkling {
+    background: url(http://www.script-tutorials.com/demos/360/images/twinkling.png) top center;
+    -moz-animation: move-twink-back 200s linear infinite;
+    -ms-animation: move-twink-back 200s linear infinite;
+    -o-animation: move-twink-back 200s linear infinite;
+    -webkit-animation: move-twink-back 200s linear infinite;
+    animation: move-twink-back 200s linear infinite;
+}
+.yellow-color {
+    color: yellow;
+}
+
+.bg-yellow-color {
+    background: yellow;
+}
+.disabled {
+    pointer-events: none;
+}
+.delete-icon {
+    height: 20px;
+}
+
+.dropdown-menu {
+    padding: 16px;
+}
+.dropdown-menu li {
+    display: flex;
+}
+
